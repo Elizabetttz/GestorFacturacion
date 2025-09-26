@@ -13,6 +13,7 @@ import { AuthService } from '../../../services/auth';
 export class MainHomeComponent {
 
   nombreUsuario : string | null = null;
+  
 
   constructor(private authService:AuthService){}
 
@@ -42,5 +43,8 @@ export class MainHomeComponent {
     console.log('si estoy ')
     return width > 768 ? 'body-trimmed' : 'body-md-screen';
   });
+
+
+
 }
 

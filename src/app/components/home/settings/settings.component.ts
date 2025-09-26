@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { Roles } from "../../../directives/roles";
 import { RouterLink, RouterOutlet, CanActivate, Router, RouterModule } from "@angular/router";
 import { AuthService } from "../../../services/auth";
-
+import { Theme } from "../../../services/theme";
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.component.html",
@@ -16,8 +16,7 @@ export class SettingsComponent {
     nombreUsuario : string | null = null;
     tipo_usuario : string | null = null;
 
-  
-    constructor(private authService:AuthService){}
+    constructor(private authService:AuthService, public theme: Theme){}
   
     ngOnInit(): void {
       this.tipo_usuario = this.authService.obtenerTipoUsuario();

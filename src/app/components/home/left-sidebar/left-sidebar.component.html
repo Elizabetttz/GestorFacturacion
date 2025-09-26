@@ -1,14 +1,21 @@
 <div class="sidenav" [ngClass]="isLeftSidebarCollapsed() ? 'sidenav-collapsed' : ''"> 
     <div class="logo-container">
-
+        <button class="logo" (click)="toggleCollapse()">
+            <i class="fa fa-bars"></i>
+        </button>
         @if (!isLeftSidebarCollapsed()) {
-            <div class="logo-text">FacturApp</div>
-        }
+            <div class="logo-text">FacturApp  
+                <P class="frase">Gestion integral</P>
+            </div>
+            <button class="btn-close" (click)="closeSidenav()"><i class="fa fa-times close-icon"></i></button>
 
-        <button class="" (click)="toggleCollapse()">arir</button>
-        
+        }        
     </div>
+
     <div class="sidenav-nav">
+        @if (!isLeftSidebarCollapsed()){
+            <p class="divisionText">Navegacion</p>
+        }
         @for (item of items; track $index) {
             <li class="sidenav-nav-item">
                 <a
