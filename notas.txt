@@ -1,0 +1,38 @@
+-Input signal: es una forma moderna y reactiva de definir propiedades de entrada en componentes
+
+-Constructor : es un metodo especial que se ejecuta automaticamente cuando la clase es creada (instanciada)
+
+-@HostListener: permite que una directiva o componente "escuche" eventos que ocurran en su propio elemento host (DOM)
+
+-Decorador: es una funcion especial de typeScript que añade metadatos o modifica el comportamiento de una clase, propiedad o metodo
+
+FLUJO SIDEBAR COLLAPSED O NO:
+        ┌──────────────────────┐
+        │        Home          │
+        │ isLeftSidebarCollapsed= false
+        └─────────┬────────────┘
+                  │ (se pasa al hijo como Input)
+                  ▼
+        ┌───────────────────────────┐
+        │   LeftSidebarComponent    │
+        │ recibe: isLeftSidebarCollapsed = false
+        └─────────┬─────────────────┘
+                  │ (usuario hace clic en toggleCollapse)
+                  ▼
+        ┌───────────────────────────┐
+        │   this.changeIsLeftSidebarCollapsed.emit(true)
+        └─────────┬─────────────────┘
+                  │ (Output emite al padre con $event)
+                  ▼
+        ┌──────────────────────┐
+        │        Home          │
+        │ changeIsLeftSidebarCollapsed(true)
+        │ → isLeftSidebarCollapsed.set(true)
+        └─────────┬────────────┘
+                  │ (Angular actualiza la señal)
+                  ▼
+        ┌───────────────────────────┐
+        │   LeftSidebarComponent    │
+        │ recibe: isLeftSidebarCollapsed = true
+        │ (se colapsa la barra)     │
+        └───────────────────────────┘

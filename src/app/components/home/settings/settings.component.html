@@ -1,0 +1,38 @@
+<div class="contenedor-total">
+<h1>Configuración</h1>
+  <h3>Bienvenido {{nombreUsuario}} </h3>
+
+<div class="container">
+<div class="settings-menu">
+
+    <a class="link" routerLink="perfil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
+
+    <li class="dropdown"
+        (click)="toggleMenu()"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }">
+
+      <a *ngIf="tipo_usuario === 'admin'"
+         class="link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+        Usuarios <i class="fa fa-angle-down" aria-hidden="true"></i>
+      </a>
+
+      <ul class="dropdown-menu" *ngIf="menuOpen">
+        <li>
+          <a routerLink="./createUser">
+            <i class="fa fa-user-plus"></i>Crear
+          </a>
+        </li>
+        <li>
+          <a routerLink="./listUser">
+            <i class="fa fa-users"></i>Lista de usuarios
+          </a>
+        </li>
+      </ul>
+    </li>
+</div>
+
+<router-outlet></router-outlet>
+
+</div>
+</div>

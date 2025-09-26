@@ -1,0 +1,29 @@
+<div class="sidenav" [ngClass]="isLeftSidebarCollapsed() ? 'sidenav-collapsed' : ''"> 
+    <div class="logo-container">
+
+        @if (!isLeftSidebarCollapsed()) {
+            <div class="logo-text">FacturApp</div>
+        }
+
+        <button class="" (click)="toggleCollapse()">arir</button>
+        
+    </div>
+    <div class="sidenav-nav">
+        @for (item of items; track $index) {
+            <li class="sidenav-nav-item">
+                <a
+                    class="sidenav-nav-link"
+                    [routerLink]="item.routeLink"
+                    routerLinkActive="active"
+                    
+                >
+                    <i class="{{ item.icon }} sidenav-link-icon"></i>
+                    @if (!isLeftSidebarCollapsed()) {
+                        <span class="sidenav-link-text">{{ item.label }}</span>
+                    }
+                    
+                </a>
+            </li>
+        }
+    </div>
+</div>

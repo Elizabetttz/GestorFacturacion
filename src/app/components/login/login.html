@@ -1,0 +1,31 @@
+<nav>
+    <h1>FACTURCORE</h1>
+    <div class="links">
+        <a href="#">Soporte</a>
+        <a href="#">Contacto</a>
+    </div>
+</nav>
+<div class="contenedor">
+    <div class="login-form">
+        <form (ngSubmit)="login()">
+            <h2>Iniciar Sesión</h2>
+            <span>Documento</span>
+            <input type="text"
+            placeholder="Ingrese su identificación"
+            [(ngModel)]="documento"
+            name="documento"
+            required="required">
+
+            <span>Contraseña</span>
+            <input type="password" 
+            placeholder="ingrese su contraseña" 
+            [(ngModel)]="psw" 
+            name="psw" 
+            required="required" />
+            <button type="submit">Ingresar</button>
+            <p *ngIf="errorMsg" class="error"> {{errorMsg}} </p>
+        </form>
+    </div>
+</div>
+
+<p>login works!</p>

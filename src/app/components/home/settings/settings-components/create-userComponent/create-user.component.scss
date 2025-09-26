@@ -1,0 +1,62 @@
+@import '../../../../../../styles/variables';
+.form-container {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px; /* Aumenta el ancho máximo para acomodar la distribución horizontal */
+}
+
+h3{
+    font-size: 18px;
+}
+
+/* Contenedor Flexbox para distribuir los campos */
+.form-row {
+    display: flex;
+    gap: 1.5rem; /* Espacio entre las columnas */
+    margin-bottom: 1rem;
+}
+
+/* Estilos de cada grupo de formulario (label + input) */
+.form-group {
+    flex: 1; /* Permite que cada grupo crezca y ocupe el mismo espacio */
+}
+
+/* Estilos para las etiquetas y los campos de entrada */
+.form-container label,
+.form-container span {
+    display: block;
+    font-weight: 500;
+    color: #555555;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* Estilos del botón de envío */
+.form-container button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $--blue-light;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Resto de estilos como en las versiones anteriores... */

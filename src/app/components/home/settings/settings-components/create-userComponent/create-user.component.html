@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="form-container">
+        <form [formGroup]="userForm" (ngSubmit)="crearUsuario()">
+            <h3>Crear un usuario</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Seleccione tipo usuario</label>
+                    <select name="tipo_usuario" id="" formControlName="tipo_usuario">
+                        <option value="admin">Admin</option>
+                        <option value="aux">Aux</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ingrese el nombre del usuario:</label>
+                    <input type="text" name="nombre" formControlName="nombre">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Ingrese el documento del usuario:</label>
+                    <input type="text" name="documento" formControlName="documento">
+                </div>
+                <div class="form-group">
+                    <span>Ingrese la contraseña del usuario:</span>
+                    <input type="password" name="password" id="" formControlName="password">
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="userForm.invalid">Crear</button>
+        </form>
+    </div>
+</div>
