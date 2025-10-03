@@ -1,11 +1,13 @@
-import { Component, input, output, Output} from '@angular/core';
+import { Component, input, output, Output, signal} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule, NgClass } from'@angular/common';
+import { CommonModule, getLocaleNumberSymbol, NgClass } from'@angular/common';
+import { FeatherModule } from 'angular-feather';
+import { SubscriptionLoggable } from 'rxjs/internal/testing/SubscriptionLoggable';
 @Component({
   selector: 'app-left-sidebar',
   templateUrl: './left-sidebar.component.html',
   styleUrls: ['./left-sidebar.component.scss'],
-  imports: [RouterModule, NgClass, CommonModule]
+  imports: [RouterModule, NgClass, CommonModule,FeatherModule]
 })
 export class LeftSidebarComponent {
   isLeftSidebarCollapsed = input.required<boolean>(); //se declara un input signal, el componente padre le debe pasar 
@@ -16,20 +18,47 @@ export class LeftSidebarComponent {
   items = [ //El array que contiene los objetos de la sidebar
     { 
       routeLink: 'inicio',
-      icon: 'fa fa-home',
+      icon: 'home',
       label: 'Inicio'
     },
     {
       routeLink: 'settings',
-      icon: 'fa fa-cog',
+      icon: 'settings',
       label: 'Configuración' 
     },
     {
+      icon: 'database',
+      label: 'Facturación',
+      children: [
+        { icon: 'plus', label: 'Nueva Factura', routeLink: 'home-factur'},
+        { icon: 'plus', label: 'Nueva Factura', routeLink: 'home-factur'},
+        { icon: 'plus', label: 'Nueva Factura', routeLink: 'home-factur'},
+      ]
+    },
+    {
       routeLink: 'reports',
-      icon: 'fa fa-chart-bar',
+      icon: 'clipboard',
       label: 'Informes'
     }
   ];
+
+  //signal para el submeno facturacion
+    openMenus = signal<Set<string>>(new Set());
+
+  toggleSubmenu(label: string){
+    const menus = new Set(this.openMenus());
+    if (menus.has(label)){
+      menus.delete(label);
+    } else {
+      menus.add(label);
+    }
+    this.openMenus.set(menus);
+  }
+  
+  isSubmenuOpen(label: string): boolean{
+    return this.openMenus().has(label);
+  }
+
 
   toggleCollapse(): void{ //Es el metodo que cambia el estado de la sidebar. 
     this.changeIsLeftSidebarCollapsed.emit(!this.isLeftSidebarCollapsed()) //Toma el valor de "isleftsidebarCo.." (true/fal) y lo invierte

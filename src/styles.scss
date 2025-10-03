@@ -7,19 +7,25 @@
 :root{
   --primary-color: #007bff;
   --background-color: #f2f3f5;
+  --dark-less-color: #e1e4ea;
   --text-color: black;
   --card-background: #ffffff;
   --box-shadow: 0.063rem 0 0.2rem 0 #444a55;
   --text-light: #787878;
+  --selected-color: #f9fafb;
+  --border-color: #d1d5db;
 }
 
 .dark-theme {
   --primary-color: #0d6efd;
   --background-color: #03020a;
+  --dark-less-color: #161617;
   --text-color: #f8f9fa;
-  --card-background: #151515;
+  --card-background: #201f1f;
   --box-shadow: 0.063rem 0 0.2rem 0 #1f242d;
   --text-light: #aaaaaa;
+  --selected-color: #3b3b3b;
+  --border-color: #333538;
 }
 
 button, 

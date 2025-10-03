@@ -10,6 +10,7 @@ import { CreateUserComponent } from './components/home/settings/settings-compone
 import { InicioComponent } from './components/home/inicio/inicio.component';
 import { RoleGuard } from './guards/authlinks.guard-guard';
 import { UsuariosListComponent } from './components/home/settings/settings-components/usuariosList-component/usuariosList.component';
+import { HomeFacturComponent } from './components/home/facturacion/home-factur.component/home_factur.component';
 export const routes: Routes = [
   {
     path: '',
@@ -37,6 +38,8 @@ export const routes: Routes = [
             { path: 'listUser', component: UsuariosListComponent, canActivate: [RoleGuard], data: { role: 'admin'}},
             { path: '', redirectTo: 'perfil',pathMatch: 'full' }
           ]
+       },
+       {  path: 'home-factur' , component: HomeFacturComponent
        },
       { path: 'reports', component: ReportsComponent },
     ]

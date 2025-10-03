@@ -1,1 +1,87 @@
-<h1>sisisiwsisisi</h1>
+<div class="container">
+    <div class="header">
+        <h1>Usuarios</h1>
+        <p>Gestiona y administra los usuarios del sistema</p>
+    </div>
+
+    <div class="card">
+        <div class="toolbar">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar usuarios..." [(ngModel)]="searchTerm">
+                <i-feather name="search"></i-feather>
+            
+            </div>
+            <div class="actions">
+                <button class="btn btn-secondary">
+                    <i-feather name="filter"></i-feather>
+                    <span>Filtros</span>
+                </button>
+                <button class="btn btn-secondary">
+                    <i-feather name="edit"></i-feather>
+                    <span>Editar</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" (change)="toggleSelectedAll()" [checked]="allSelected()"></th>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (user of users(); track user.id){
+                        <tr>
+                            <td><input type="checkbox" (change)="toggleUserSelection(user.id)" [checked]="isSelected(user.id)"></td>
+                            
+                            <td>
+                                <div class="user-id">
+                                    <span class="user-id">{{user.id}} </span>
+                                </div>
+                            </td>
+                            
+                            <td>
+                                <div class="user-info">
+                                    <div class="avatar">{{user.avatar}} </div>
+                                    <span class="user-name">{{user.nombre}} </span>
+                                </div>
+                            </td>
+                            <td class="user-document">{{user.documento}}</td>
+                            <td><span class="tipo_usuario" [ngClass]="getRoleColor(user.tipo_usuario)">{{user.tipo_usuario}} </span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="icon-btn edit" (click)="editUser(user)">
+                                        <i-feather name="edit-2"></i-feather>
+                                    </button>
+                                    <button class="icon-btn delete" (click)="deleteUser(user)">
+                                        <i-feather name="trash-2"></i-feather>
+                                    </button>
+                                    <button class="icon-btn">
+                                        <i-feather name="more-vertical"></i-feather>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <div class="footer-info">
+                Mostrando <strong>1-5</strong> de <strong>5</strong> usuarios
+            </div>
+        <div class="pagination">
+        <button class="page-btn" disabled>Anterior</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn" disabled>Siguiente</button>
+        </div>
+    </div>
+</div>
+</div>

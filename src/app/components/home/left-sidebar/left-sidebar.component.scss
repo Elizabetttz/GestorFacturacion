@@ -93,13 +93,13 @@
   text-decoration: none;
   border-radius: 0.625rem;
   transition: all 0.3s ease;
+  
 }
+
+
 .sidenav-nav .sidenav-nav-item .sidenav-nav-link .sidenav-link-icon {
-  font-size: 20px;
-  width: 2rem;
-  min-width: 2rem;
-  text-align: center;
-  padding: 8px;
+  width: 20px;
+  height: 20px;
 }
 .sidenav-nav .sidenav-nav-item .sidenav-nav-link .sidenav-link-text {
   margin-left: 0.5rem;
@@ -112,4 +112,81 @@
 .sidenav .sidenav-nav-item .active {
   background-color: var(--background-color);
   color: var(--text-color);
+}
+.sidenav-collapsed{
+  width: 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidenav-collapsed .logo-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chevron-icon{
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+  margin-left: 2px;
+  color: var(--text-color);
+
+  &.rotate{
+    transform: rotate(180deg);
+  }
+}
+
+
+.submenu{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: var(--card-background);
+  animation: slideDown 0.3s ease-out;
+  overflow: hidden;
+}
+
+@keyframes slideDown{
+  from{
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 300px;
+  }
+}
+
+.submenu-item {
+  list-style: none;
+}
+
+.submenu-link{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 16px 7px 30px;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background-color 0.2s;
+  font-size: 0.9em;
+
+  &:hover {
+    background-color: var(--text-light);
+  }
+
+  &:active{
+    background-color: rgba(0,0,0,0.12);
+
+  }
+}
+
+.submenu-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-color);
+  flex-shrink: 0;
 }

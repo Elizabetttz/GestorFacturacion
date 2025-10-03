@@ -18,19 +18,56 @@
         }
         @for (item of items; track $index) {
             <li class="sidenav-nav-item">
-                <a
-                    class="sidenav-nav-link"
-                    [routerLink]="item.routeLink"
-                    routerLinkActive="active"
-                    
-                >
-                    <i class="{{ item.icon }} sidenav-link-icon"></i>
+                
+                @if(item.children){
+                    <a
+                        class="sidenav-nav-link"
+                        (click)="toggleSubmenu(item.label)"
+                        [class.submenu-activa]="isSubmenuOpen(item.label)"
+                    >
+                    <i-feather class="sidenav-link-icon" name="{{item.icon}}"></i-feather>
                     @if (!isLeftSidebarCollapsed()) {
                         <span class="sidenav-link-text">{{ item.label }}</span>
+                        <i-feather
+                            class="chevron-icon"
+                            [class.rotate]="isSubmenuOpen(item.label)"
+                            name="chevron-down"
+                        ></i-feather>
                     }
+                    </a>
+                } @else {
+                    <a 
+                        class="sidenav-nav-link"
+                        [routerLink]="item.routeLink"
+                        routerLinkActive="active|">
+
+                        <i-feather class="sidenav-link-icon" name="{{item.icon}}"></i-feather>
+                        @if(!isLeftSidebarCollapsed()){
+                            <span class="sidenav-link-text">{{item.label}}</span>
+                        }
+                    </a>
+                }
+               
                     
-                </a>
+                
+
+                @if (isSubmenuOpen(item.label) && !isLeftSidebarCollapsed()){
+                    <ul class="submenu">
+                        @for (child of item.children; track $index){
+                            <li class="submenu-item">
+                                <a 
+                                    class="submenu-link"
+                                    [routerLink]="child.routeLink"
+                                    routerLinkActive="active"
+                                >
+                                <i-feather class="submenu-icon" name="{{child.icon}}"></i-feather>
+                                <span>{{child.label}} </span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
             </li>
-        }
+        } 
     </div>
 </div>
