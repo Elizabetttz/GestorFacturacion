@@ -2,15 +2,14 @@ import { Routes } from '@angular/router';
 import { Login } from './components/login/login';
 import { Home } from './components/home/home';
 import { authGuard } from './guards/auth.guard';
-import { ReportsComponent} from './components/home/reports/reports.component';
 import { SettingsComponent } from './components/home/settings/settings.component';
-import { MainHomeComponent } from './components/home/main-home/main-home.component';
 import { PerfilSettingComponent } from './components/home/settings/settings-components/perfil-component/perfil-settings.component';
 import { CreateUserComponent } from './components/home/settings/settings-components/create-userComponent/create-user.component';
 import { InicioComponent } from './components/home/inicio/inicio.component';
 import { RoleGuard } from './guards/authlinks.guard-guard';
+import { ReportesHomeComponent } from './components/home/reportes/reportes-home/reportes_home.component';
 import { UsuariosListComponent } from './components/home/settings/settings-components/usuariosList-component/usuariosList.component';
-import { HomeFacturComponent } from './components/home/facturacion/home-factur.component/home_factur.component';
+import { FacturacionComponent } from './components/home/facturacion/facturacion.component';
 export const routes: Routes = [
   {
     path: '',
@@ -39,9 +38,9 @@ export const routes: Routes = [
             { path: '', redirectTo: 'perfil',pathMatch: 'full' }
           ]
        },
-       {  path: 'home-factur' , component: HomeFacturComponent
+       { path: 'reports', component: ReportesHomeComponent
        },
-      { path: 'reports', component: ReportsComponent },
+      { path: 'facturacion', component: FacturacionComponent },
     ]
   },
 ];

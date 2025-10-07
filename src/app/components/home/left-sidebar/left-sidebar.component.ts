@@ -27,19 +27,21 @@ export class LeftSidebarComponent {
       label: 'Configuración' 
     },
     {
+      routeLink: 'facturacion',
       icon: 'database',
-      label: 'Facturación',
-      children: [
-        { icon: 'plus', label: 'Nueva Factura', routeLink: 'home-factur'},
-        { icon: 'plus', label: 'Nueva Factura', routeLink: 'home-factur'},
-        { icon: 'plus', label: 'Nueva Factura', routeLink: 'home-factur'},
-      ]
+      label: 'Facturacion'
     },
     {
-      routeLink: 'reports',
+      label: 'reportes',
       icon: 'clipboard',
-      label: 'Informes'
-    }
+
+      children: [
+        { icon: 'plus', label: 'Nueva Factura', routeLink: 'reports'},
+        { icon: 'plus', label: 'Nueva Factura', routeLink: 'reports'},
+        { icon: 'plus', label: 'Nueva Factura', routeLink: 'reports'},
+      ]
+    },
+    
   ];
 
   //signal para el submeno facturacion

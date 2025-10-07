@@ -1,0 +1,116 @@
+<div class="table-container">
+    <div class="table-wrapper">
+        <h2 class="title">Cuadro De Facturación</h2>
+        <div class="toolbar">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    [(ngModel)]="searchTerm"
+                    (input)="filterFacturas()"
+                    placeholder="Buscar por N° Factura, Nit o Tercero..." 
+                    class="search-input" 
+                />
+                <span class="search-icon"><i-feather name="search"></i-feather></span>
+            </div>
+            <button class="export-button" (click)="exportToExcel()">
+                <span class="icon">📥</span> Actualizar facturas
+            </button>
+        </div>
+
+        <div class="table-scroll">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th class="numeric">ID</th>
+                        <th (click)="sortBy('numero_factura')" class="sticky-col">
+                            N° Factura <span class="sort-icon">⇅</span>
+                        </th>
+                        <th (click)="sortBy('nit')">NIT <span class="sort-icon">⇅</span></th>
+                        <th>Tercero</th>
+                        <th (click)="sortBy('fecha')">Fecha <span class="sort-icon">⇅</span></th>
+                        <th>Concepto</th>
+                        <th class="numeric">Subtotal</th>
+                        <th class="numeric">IVA</th>
+                        <th class="numeric">Total</th>
+                        <th class="numeric">Rete Fte</th>
+                        <th class="numeric">ICA 6.9</th>
+                        <th class="numeric">Rete IVA</th>
+                        <th class="numeric">Importes Facturación</th>
+                        <th class="numeric">Total Descuentos</th>
+                        <th class="numeric highlight">Total a Pagar</th>
+                        <th>Fecha de Pago</th>
+                        <th>Forma de Pago</th>
+                        <th class="numeric">Valor Pagado</th>
+                        <th class="numeric">Saldo</th>
+                        <th class="status-col">Revisión</th>
+                        <th class="actions-col sticky-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let factura of paginatedFacturas" [class.highlighted]="+factura.saldo >= 1">
+                        <td class="bold" data-label="ID">{{ factura.id }}</td>
+                        <td data-label="N° Factura" class="sticky-col">{{ factura.numero_factura }}</td>
+                        <td data-label="NIT" class="varchars">{{ factura.nit }}</td>
+                        <td data-label="Tercero" class="tercero-cell">{{ factura.tercero }}</td>
+                        <td data-label="Fecha" class="varchars">{{ factura.fecha | date: 'dd/MM/yyyy' }}</td>
+                        <td data-label="Concepto" class="concepto-cell">{{ factura.concepto }}</td>
+                        <td data-label="Subtotal" class="numeric">{{ factura.subtotal | currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="IVA" class="numeric">{{ factura.iva | currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="Total" class="numeric bold">{{ factura.total | currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="Rete Fte" class="numeric">{{ factura.rete_fte | currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="ICA 6.9" class="numeric">{{ factura.ica_6_9| currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="Rete IVA" class="numeric">{{ factura.rete_iva | currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="Importes Facturación" class="numeric">{{ factura.factu_importes| currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="Total Descuentos" class="numeric">{{ factura.total_descuentos | currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="Total a Pagar" class="numeric highlight bold">{{ factura.total_pagar | currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="Fecha de Pago">{{ factura.fecha_pago ? (factura.fecha_pago | date: 'dd/MM/yyyy') : '-' }}</td>
+                        <td data-label="Forma de Pago">{{ factura.forma_pago || '-' }}</td>
+                        <td data-label="Valor Pagado" class="numeric">{{ factura.valor | currency: 'COP':'symbol-narrow':'1.0-0' }}</td>
+                        <td data-label="Saldo" class="numeric" [class.saldo-pendiente]="+factura.saldo >= 1">
+                            {{ factura.saldo | currency: 'COP':'symbol-narrow':'1.0-0' }}
+                        </td>
+                        <td data-label="Revisión" class="status-col">
+                            <span [ngClass]="getStatusClass(factura.revision)">
+                                {{ factura.revision || 'PENDIENTE' }}
+                            </span>
+                        </td>
+                        <td data-label="Acciones" class="actions-col sticky-right">
+                            <button class="action-btn view" title="Ver detalles">
+                                <i-feather name="eye"></i-feather>
+                            </button>
+                            <button class="action-btn edit" title="Editar">
+                                <i-feather name="edit"></i-feather>
+                            </button>
+                            <button class="action-btn delete"  title="Eliminar" (click)="deleteFactura(factura)">
+                                <i-feather name="trash-2"></i-feather>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="filteredFacturas.length === 0">
+                        <td colspan="21" class="empty-state">
+                            <div class="empty-message">
+                                <span class="empty-icon">📭</span>
+                                <p>No se encontraron facturas</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-footer">
+            <div class="results-info">
+                Mostrando {{ filteredFacturas.length }} de {{ facturas().length }} facturas
+            </div>
+            <div class="pagination-controls">
+                <button class="page-btn" [disabled]="currentPage === 1" (click)="previousPage()">
+                    ← Anterior
+                </button>
+                <span class="page-info">Página {{ currentPage }} de {{ totalPages }}</span>
+                <button class="page-btn" [disabled]="currentPage === totalPages" (click)="nextPage()">
+                    Siguiente →
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
