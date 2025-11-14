@@ -36,14 +36,13 @@ export class FacturacionComponent implements OnInit, OnDestroy {
   loadFacturas() {
   this.facturSubscription = this.facturService.getAllFacturas().subscribe({
     next: (data: Factura[]) => {
-      console.log('✅ Datos del backend:', data);
+      console.log('Datos del backend:', data);
 
       const facturasList = data.map((factura) => {
-        // 🔥 Limpieza y redondeo del saldo
+        //Limpiamos y redondeo del saldo
         const saldoLimpio = Math.round(
           (parseFloat((factura.saldo || '0').toString().replace(/[^0-9.-]+/g, '')) || 0) * 100
         ) / 100;
-
 
         return {
           ...factura,
@@ -51,12 +50,6 @@ export class FacturacionComponent implements OnInit, OnDestroy {
           fechaUI: new Date(factura.fecha).toLocaleDateString('es-CO'),
         };
       });
-        facturasList.forEach(f => {
-          if (f.saldo > 0) {
-            console.log(`⚠️ Factura ${f.id} tiene saldo pendiente aparente:`, f.saldo);
-          }
-        });
-
 
       this.facturas.set(facturasList as Factura[]);
       this.filteredFacturas = facturasList as Factura[];
@@ -165,18 +158,6 @@ export class FacturacionComponent implements OnInit, OnDestroy {
 
   exportToExcel(): void {
     console.log('📥 Exportando a Excel...');
-    // TODO: Implementa la exportación
-    // Opción 1: Usar librería como xlsx
-    // Opción 2: Llamar endpoint del backend que genere el Excel
-    
-    /* Ejemplo con xlsx:
-    import * as XLSX from 'xlsx';
-    
-    const worksheet = XLSX.utils.json_to_sheet(this.filteredFacturas);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Facturas');
-    XLSX.writeFile(workbook, `Facturas_${new Date().toISOString()}.xlsx`);
-    */
   }
 
   calculateTotalPages(): void {

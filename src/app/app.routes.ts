@@ -10,6 +10,9 @@ import { RoleGuard } from './guards/authlinks.guard-guard';
 import { ReportesHomeComponent } from './components/home/reportes/reportes-home/reportes_home.component';
 import { UsuariosListComponent } from './components/home/settings/settings-components/usuariosList-component/usuariosList.component';
 import { FacturacionComponent } from './components/home/facturacion/facturacion.component';
+import { OrdenesComponent } from './components/home/reportes/ordenes/ordenes.component';
+import  { AccesibilidadComponent } from './components/home/settings/settings-components/perfil-component/perfil-component/accesibilidad.component'
+
 export const routes: Routes = [
   {
     path: '',
@@ -32,15 +35,20 @@ export const routes: Routes = [
       
       { path: 'settings', component: SettingsComponent,
         children: [      
-            { path: 'perfil', component: PerfilSettingComponent },
+            { path: 'perfil', component: PerfilSettingComponent},
             { path: 'createUser', component: CreateUserComponent, canActivate: [RoleGuard], data: { role: 'admin'}},
             { path: 'listUser', component: UsuariosListComponent, canActivate: [RoleGuard], data: { role: 'admin'}},
-            { path: '', redirectTo: 'perfil',pathMatch: 'full' }
+            { path: '', redirectTo: 'perfil',pathMatch: 'full' },
+            {path: 'accesibilidad', component: AccesibilidadComponent },
+
           ]
        },
        { path: 'reports', component: ReportesHomeComponent
        },
+       { path: 'ordenes', component: OrdenesComponent
+       }, 
       { path: 'facturacion', component: FacturacionComponent },
+
     ]
   },
 ];

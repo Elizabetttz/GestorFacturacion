@@ -1,1 +1,81 @@
-<p>Hola soy perfil</p>
+<div class="profile-container">
+
+  <main class="main-content">
+    <div class="profile-header">
+      <h1>Perfil de Usuario</h1>
+      <p>Gestiona tu información personal y preferencias</p>
+    </div>
+
+    <div class="profile-content">
+      <div class="profile-section">
+        <div class="section-header">
+          <h2>Información Personal</h2>
+          <button class="btn-edit" (click)="toggleEdit()">
+            {{ isEditing ? 'Cancelar' : 'Editar' }}
+          </button>
+        </div>
+
+        <form  (ngSubmit)="onSubmit()" class="profile-form">
+          <div class="avatar-section">
+            <div class="avatar">
+              <img src="/src/app/components/home/settings/settings-components/perfil-component/assets/default-avatar.png"
+                   alt="Avatar" class="avatar-img">
+              <div class="avatar-overlay" *ngIf="isEditing">
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input">
+                <span>Cambiar foto</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <span>{{nombreUsario}} </span>
+            </div>
+
+            <div class="form-group">
+              <label for="tipo usuario">Tipo usuario</label>
+              <span>{{tipo_usuario}} </span>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" formControlName="email" 
+                     [class.editing]="isEditing" [readonly]="!isEditing">
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" formControlName="telefono" 
+                     [class.editing]="isEditing" [readonly]="!isEditing">
+            </div>
+
+            <div class="form-group full-width">
+              <label for="empresa">Empresa</label>
+              <input type="text" id="empresa" formControlName="empresa" 
+                     [class.editing]="isEditing" [readonly]="!isEditing">
+            </div>
+
+            <div class="form-group full-width">
+              <label for="direccion">Dirección</label>
+              <textarea id="direccion" formControlName="direccion" 
+                        [class.editing]="isEditing" [readonly]="!isEditing"
+                        rows="3"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions" *ngIf="isEditing">
+            <button type="submit" class="btn-save" [disabled]="!profileForm.valid">
+              Guardar Cambios
+            </button>
+            <button type="button" class="btn-cancel" (click)="toggleEdit()">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+      <a (click)="logout()" class="btn-edit">Cerrar Sesión</a>
+
+      
+
+</div>

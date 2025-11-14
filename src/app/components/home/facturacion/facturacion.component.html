@@ -1,6 +1,8 @@
+
+<h1 class="title">Cuadro De Facturación</h1>
+
 <div class="table-container">
     <div class="table-wrapper">
-        <h2 class="title">Cuadro De Facturación</h2>
         <div class="toolbar">
             <div class="search-box">
                 <input 
@@ -13,7 +15,7 @@
                 <span class="search-icon"><i-feather name="search"></i-feather></span>
             </div>
             <button class="export-button" (click)="exportToExcel()">
-                <span class="icon">📥</span> Actualizar facturas
+                <span class="icon"></span> Actualizar facturas
             </button>
         </div>
 
@@ -89,7 +91,7 @@
                     <tr *ngIf="filteredFacturas.length === 0">
                         <td colspan="21" class="empty-state">
                             <div class="empty-message">
-                                <span class="empty-icon">📭</span>
+                                <span class="empty-icon"></span>
                                 <p>No se encontraron facturas</p>
                             </div>
                         </td>

@@ -101,8 +101,23 @@ export class UsuariosListComponent implements OnInit, OnDestroy {
         console.log('Ediatr:', user);
     }
 
-    deleteUser(user: Usuario){
-        console.log('Eliminar', user);
+    deleteUser(user: Usuario): void {
+        const confirmacion = confirm(
+            `¿Estas segurp de eliminar el usuario ${user.id}?\n\nEsta accion no se puede deshacer.`
+        );
+
+        if(confirmacion){
+            this.userService.deleteUsuario(user.id).subscribe({
+                next: (res) => {
+                    console.log('Factura eliminada');
+                    alert('Usuario eliminado correctamente')
+                    this.loadUsers();
+                },
+                error: (err) => {
+                    console.error('Error al eliminar factura:', err);
+                }
+            });
+        }
     }
 
 }

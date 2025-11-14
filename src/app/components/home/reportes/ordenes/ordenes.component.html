@@ -1,6 +1,4 @@
-<h1 class="title">Cuadro De Facturas Recibidas</h1>
-
-
+<h1 class="title">Cuadro De Órdenes de Compra</h1>
 
 <div class="table-container">
     <div class="table-wrapper">
@@ -9,18 +7,18 @@
                 <input 
                     type="text" 
                     [(ngModel)]="searchTerm"
-                    (input)="filterFacturas()"
-                    placeholder="Buscar por N° Factura, Nit o Tercero..." 
+                    (input)="filterOrdenes()"
+                    placeholder="Buscar por NIT, Comprador o Descripción..." 
                     class="search-input" 
                 />
                 <span class="search-icon"><i-feather name="search"></i-feather></span>
             </div>
-            <button class="export-button" (click)="actualizarFacturas()">
-                <span class="icon"></span> Actualizar facturas
+            <button class="export-button" (click)="actualizarOrdenes()">
+                <span class="icon"></span> Actualizar órdenes
             </button>
         </div>
-        <!-- Fondo oscuro -->
-    <div 
+
+          <div 
         class="modal-overlay" 
         *ngIf="cargando || procesoCompletado || error">
     </div>
@@ -63,58 +61,55 @@
                 <thead>
                     <tr>
                         <th class="numeric">ID</th>
-                        <th (click)="sortBy('numero_factura')" class="sticky-col">
-                            N° Factura <span class="sort-icon">⇅</span>
+                        <th (click)="sortBy('comprador_nit')" class="sticky-col">
+                            NIT Comprador <span class="sort-icon">⇅</span>
                         </th>
-                        <th (click)="sortBy('nit')">NIT <span class="sort-icon">⇅</span></th>
-                        <th>Tercero</th>
-                        <th (click)="sortBy('fecha')">Fecha <span class="sort-icon">⇅</span></th>
-                        <th>Concepto</th>
+                        <th>Comprador</th>
+                        <th (click)="sortBy('fecha_elaboracion')">Fecha Elaboración <span class="sort-icon">⇅</span></th>
+                        <th>Descripción</th>
+                        <th class="numeric">Cantidad</th>
+                        <th class="numeric">Precio Unitario</th>
+                        <th class="numeric">Valor Total Item</th>
                         <th class="numeric">Subtotal</th>
                         <th class="numeric">IVA</th>
-                        <th class="numeric">Total</th>
-                        <th class="numeric">Rete Fte</th>
-                        <th class="numeric">ICA 6.9</th>
-                        <th class="numeric">Rete IVA</th>
-                        <th class="numeric">Total Descuentos</th>
-                        <th class="numeric highlight">Total a Pagar</th>   
-                        <th class="actions-col sticky-right">Acciones</th>                       
-
+                        <th class="numeric highlight">Total</th>
+                        <th>Términos de Pago</th>
+                        <th class="actions-col sticky-right">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let factura of paginatedFacturas" >
-                        <td class="bold" data-label="ID">{{ factura.id }}</td>
-                        <td data-label="N° Factura" class="sticky-col">{{ factura.numero_factura }}</td>
-                        <td data-label="NIT" class="varchars">{{ factura.comercializadora_nit }}</td>
-                        <td data-label="Tercero" class="tercero-cell">{{ factura.comercializadora_nombre }}</td>
-                        <td data-label="Fecha" class="varchars">{{ factura.fecha_emision| date: 'dd/MM/yyyy' }}</td>
-                        <td data-label="Concepto" class="concepto-cell">{{ factura.descripcion }}</td>
-                        <td data-label="Subtotal" class="numeric">{{ factura.subtotal  }}</td>
-                        <td data-label="IVA" class="numeric">{{ factura.iva  }}</td>
-                        <td data-label="Total" class="numeric bold">{{ factura.total  }}</td>
-                        <td data-label="Rete Fte" class="numeric">{{ factura.rete_fuente }}</td>
-                        <td data-label="ICA 6.9" class="numeric">{{ factura.rete_ica }}</td>
-                        <td data-label="Rete IVA" class="numeric">{{ factura.rete_iva}}</td>
-                        <td data-label="Total Descuentos" class="numeric">{{ factura.descuento }}</td>
-                        <td data-label="Total a Pagar" class="numeric highlight bold">{{ factura.total }}</td>
+                    <tr *ngFor="let orden of paginatedOrdenes">
+                        <td class="bold" data-label="ID">{{ orden.id }}</td>
+                        <td data-label="NIT Comprador" class="sticky-col varchars">{{ orden.comprador_nit }}</td>
+                        <td data-label="Comprador" class="tercero-cell">{{ orden.comprador_nombre }}</td>
+                        <td data-label="Fecha Elaboración" class="varchars">{{ orden.fecha_elaboracion | date: 'dd/MM/yyyy' }}</td>
+                        <td data-label="Descripción" class="concepto-cell">{{ orden.descripcion }}</td>
+                        <td data-label="Cantidad" class="numeric">{{ orden.cantidad }}</td>
+                        <td data-label="Precio Unitario" class="numeric">{{ orden.precio_unitario }}</td>
+                        <td data-label="Valor Total Item" class="numeric">{{ orden.valor_total_item  }}</td>
+                        <td data-label="Subtotal" class="numeric">{{ orden.subtotal  }}</td>
+                        <td data-label="IVA" class="numeric">{{ orden.iva  }}</td>
+                        <td data-label="Total" class="numeric highlight bold">{{ orden.total}}</td>
+                        <td data-label="Términos de Pago" class="varchars">{{ orden.terminos_pago }}</td>
+                        
                         <td data-label="Acciones" class="actions-col sticky-right">
-                            <button class="action-btn view" title="Ver detalles" (click)="downloadPDF(factura.ruta)">
+                            <button class="action-btn view" title="Ver detalles" (click)="downloadPDF(orden.ruta)">
                                 <i-feather name="eye"></i-feather>
                             </button>
+                            
                             <button class="action-btn edit" title="Editar">
                                 <i-feather name="edit"></i-feather>
                             </button>
-                            <button class="action-btn delete"  title="Eliminar" (click)="deleteFactura(factura)">
+                            <button class="action-btn delete" title="Eliminar" (click)="deleteOrden(orden)">
                                 <i-feather name="trash-2"></i-feather>
                             </button>
                         </td>
                     </tr>
-                    <tr *ngIf="filteredFacturas.length === 0">
-                        <td colspan="21" class="empty-state">
+                    <tr *ngIf="filteredOrdenes.length === 0">
+                        <td colspan="14" class="empty-state">
                             <div class="empty-message">
                                 <span class="empty-icon"></span>
-                                <p>No se encontraron facturas</p>
+                                <p>No se encontraron órdenes de compra</p>
                             </div>
                         </td>
                     </tr>
@@ -124,7 +119,7 @@
 
         <div class="table-footer">
             <div class="results-info">
-                Mostrando {{ filteredFacturas.length }} de {{ facturas().length }} facturas
+                Mostrando {{ filteredOrdenes.length }} de {{ ordenes().length }} órdenes de compra
             </div>
             <div class="pagination-controls">
                 <button class="page-btn" [disabled]="currentPage === 1" (click)="previousPage()">
@@ -137,3 +132,4 @@
             </div>
         </div>
     </div>
+</div>

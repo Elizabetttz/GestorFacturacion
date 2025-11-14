@@ -1,0 +1,15 @@
+.btn-theme{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    color: var(--dark-less-color);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background-color: var(--primary-color);
+}
+
+p, h2{
+    color: var(--text-color);
+}

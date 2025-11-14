@@ -17,7 +17,7 @@ export class LeftSidebarComponent {
   
   items = [ //El array que contiene los objetos de la sidebar
     { 
-      routeLink: 'inicio',
+      routeLink: 'accesibilidad',
       icon: 'home',
       label: 'Inicio'
     },
@@ -36,9 +36,9 @@ export class LeftSidebarComponent {
       icon: 'clipboard',
 
       children: [
-        { icon: 'plus', label: 'Nueva Factura', routeLink: 'reports'},
-        { icon: 'plus', label: 'Nueva Factura', routeLink: 'reports'},
-        { icon: 'plus', label: 'Nueva Factura', routeLink: 'reports'},
+        { icon: 'plus', label: 'Facturas Recibidas', routeLink: 'reports'},
+        { icon: 'plus', label: 'Ordenes de compra', routeLink: 'ordenes'},
+        { icon: 'plus', label: 'otro', routeLink: 'reports'},
       ]
     },
     

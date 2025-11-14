@@ -1,11 +1,11 @@
 <div class="contenedor-total">
 <h1>Configuración</h1>
   <h3 class="name">Bienvenido {{nombreUsuario}} </h3>
-<button (click)="theme.toggleTheme()">cambiar</button>
 <div class="container">
 <div class="settings-menu">
 
     <a class="link" routerLink="perfil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
+    <a class="link" routerLink="accesibilidad" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accesibilidad</a>
 
     <li class="dropdown"
         (click)="toggleMenu()"
